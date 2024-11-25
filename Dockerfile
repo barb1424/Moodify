@@ -13,4 +13,4 @@ RUN chmod +x mvnw
 
 RUN ./mvnw clean package
 
-CMD ["java", "-jar", "target/Moodify-0.0.1-SNAPSHOTT.war"]
+CMD ["java", "-jar", "target/moodify-0.0.1-SNAPSHOT.war"]

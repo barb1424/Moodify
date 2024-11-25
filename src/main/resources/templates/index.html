@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moodify</title>
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        /* Estilos Gerais */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #4CAF50;
+            color: white;
+            padding: 20px 10px;
+            text-align: center;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .add-mood, .mood-list {
+            background: white;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        form input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        form button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Moodify</h1>
+        <p>Organize e acompanhe seus estados de humor!</p>
+    </header>
+
+    <main>
+        <section class="add-mood">
+            <h2>Adicionar Mood</h2>
+            <form action="/moods/add" method="post">
+                <label for="moodType">Nome do Mood:</label>
+                <input type="text" id="moodType" name="moodType" placeholder="Ex: Feliz" required>
+
+                <label for="description">Descrição:</label>
+                <input type="text" id="description" name="description" placeholder="Ex: Dia incrível com amigos" required>
+
+                <label for="song">Música:</label>
+                <input type="text" id="song" name="song" placeholder="Ex: Imagine - John Lennon" required>
+
+                <button type="submit">Adicionar</button>
+            </form>
+        </section>
+
+        <section class="mood-list">
+            <h2>Meus Moods</h2>
+            <ul>
+                <li th:each="mood : ${moods}">
+                    <strong th:text="${mood.moodType}">Mood</strong>: 
+                    <span th:text="${mood.description}">Descrição</span><br>
+                    <em th:text="${mood.song}">Música</em>
+                    <!-- Formulário para excluir o humor -->
+                    <form th:action="@{/moods/delete/{id}(id=${mood.id})}" th:method="post" style="display:inline;">
+                        <button type="submit" onclick="return confirm('Você tem certeza que deseja excluir este mood?')">Excluir</button>
+                    </form>
+                </li>
+            </ul>
+            <p th:if="${#lists.isEmpty(moods)}">Nenhum mood adicionado ainda.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Moodify © 2024 - Criado para você acompanhar seus sentimentos</p>
+    </footer>
+</body>
+</html>

@@ -1,23 +1,21 @@
 server:
-    port: 8080
+  port: 8080
 
 spring:
-    datasource:
-        url: jdbc:postgresql://dpg-cperjq7sc6pc73a319ug-a:5432/fatecjava_3rbg // aqui ajusta para o link que está lá e o  nome do branco
-        username: fatecjava // Coloca aqui o username do render
-        password: rD7NIJNpRZhrqK0DkPpOTYTm6DT5wPbV // senha do render, user e senha são gerados lá 
-        driver-class-name: org.postgresql.Driver
-        initialize: true
+  datasource:
+    url: jdbc:postgresql://dpg-ct22585umphs738sub00-a.oregon-postgres.render.com:5432/moodifydb_8xb3  # Use a URL externa
+    username: moodifydb_8xb3_user  # Nome de usuário
+    password: HFftUeitiA5DwtDpwUro6ZqyDQvCZ49F  # Senha do banco de dados
+    driver-class-name: org.postgresql.Driver
+    initialize: true
 
-    jpa: 
-        hibernate:
-            ddl-auto: create-drop
-            generate-ddl: true
+  jpa:
+    hibernate:
+      ddl-auto: create-drop  # Altere para 'update' se não quiser recriar o banco cada vez
+      generate-ddl: true
 
-    sql:
-        init:
-            schema-locations: classpath:/schema-postgresql.sql
-            mode: always
-            platform: postgres
-
-// Apagar o applicatino.properties e deixa só esse .yml e sobe lá
+  sql:
+    init:
+      schema-locations: classpath:/schema-postgresql.sql  # Se você tiver um script de inicialização de schema
+      mode: always
+      platform: postgres
